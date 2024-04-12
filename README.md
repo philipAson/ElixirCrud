@@ -4,19 +4,16 @@
 
 # Users
 
-<!-- We are going to create a simple `User` module which has a number of stored users and then we will add functionality to list, find and filter the users. -->
+We are going to create a simple `User` module which has a number of stored users and then we will add functionality to list, find and filter the users.
 
 ### Step 1:
 
-<!-- Store 10 random users in a module attribute.
-Each user should have: id, name, email
-
-
- age, created_at (time), and deleted (boolean). -->
+Store 10 random users in a module attribute.
+Each user should have: id, name, email, age, created_at (time), and deleted (boolean).
 
 ### Step 2
 
-<!-- 
+
 
 Add functionality to:
 
@@ -24,11 +21,11 @@ Add functionality to:
 - Find a user by id 
 - Find a user by email 
 
--->
+
 
 ### Step 3:
 
-<!-- 
+
 
 - Allow limiting the number of users returned     [X]
 - Enable filtering of users by age                [X]
@@ -36,11 +33,26 @@ Add functionality to:
 - Allow sorting of users by age                   [X]
 - Allow sorting of users by created_at            [X]
 - Allow sorting of users by name                  [X]
--->
+
 
 ### Step 4:     
 
-<!-- - Add a search functionality that enables searching for a user by email. It should be possible to search using only a part of the email. -->
+- Add a search functionality that enables searching for a user by email. It should be possible to search using only a part of the email.
+
+### keywords:
+
+- module attribute
+- snake_case (funktioner)
+- PascalCase (moduler)
+- pipes
+- Error handling
+- Pattern matching
+- sort tablefilter
+
+Example: list_users(%{limit: 4, sort_by: :created_at, filter: ....})
+
+
+
 
 ## Installation
 
