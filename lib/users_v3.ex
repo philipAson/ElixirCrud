@@ -16,6 +16,7 @@ defmodule UsersV3 do
     %{id: 121212, name: "Silja", email: "Silja@upptec.se", date_of_birth: ~D[1183-01-01], created_at: ~U[2011-01-12 00:01:00.00Z], is_active: true},
   ]
 
+  
   def list_users(options \\ []) do
     @users
     |> apply_filters(Keyword.get(options, :filter, nil))
@@ -38,7 +39,7 @@ defmodule UsersV3 do
   end
 
   defp limit_users(users, limit), do: Enum.take(users, limit)
-  
+
   # UserV3.list_user(limit: x, filter: [is_active: false], sort_by: :name)
 
 end
