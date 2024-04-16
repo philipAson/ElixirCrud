@@ -25,23 +25,29 @@ defmodule UsersV4 do
     end)
     # --- PIPE OPERATOR ---
     |> filter_users(Keyword.get(options, :filter, nil))
-    # ~~~ pipes returns of filter_users -> limit_users() ~~~
-    |> limit_users(Keyword.get(options, :limit, length(@users)))
-    # ~~~ pipes returns of limit_users() -> sort_by() ~~~
+    # ~~~ pipes returns of filter_users -> sort_users() ~~~
     |> sort_users(Keyword.get(options, :sort_by, nil))
+    # ~~~ pipes returns of sort_users() -> limit_users() ~~~
+    |> limit_users(Keyword.get(options, :limit, length(@users)))
 
   end
 
   # --- FILt3rzz ---
   defp filter_users(users, nil), do: users
   defp filter_users(users, filters) do
+    # ~~~ acc = akumulerade users som fyller kriterierna för filterna ~~~
     Enum.reduce(filters, users, fn {filter_key, filter_value}, acc ->
       apply_filter(acc, filter_key, filter_value)
     end)
   end
 
   defp apply_filter(users, :age, value) do
-    Enum.filter(users, fn user -> user.age == value end)
+    if is_integer(value) do
+      Enum.filter(users, fn user -> user.age == value end)
+    else
+      {"Expected integer for age, got: #{value}"}
+    end
+
   end
   defp apply_filter(users, :email, value) do
     Enum.filter(users, fn user -> String.contains?(user.email, value) end)
@@ -50,12 +56,15 @@ defmodule UsersV4 do
     Enum.filter(users, fn user -> user.is_active == value end)
   end
 
-  # --- Limiter ---
-  defp limit_users(users, limit), do: Enum.take(users, limit)
-
   # --- Sorter ---
   defp sort_users(users, nil), do: users
   defp sort_users(users, sorter) do
     Enum.sort_by(users, &Map.get(&1, sorter))
   end
+
+  # --- Limiter ---
+  defp limit_users(users, limit) when is_integer(limit) do
+    Enum.take(users, limit)
+  end
+  defp limit_users(users, limit), do: raise ArgumentError, "Expected integer for limit, got: #{inspect(limit)}"
 end
